@@ -1,3 +1,4 @@
+# Zadání
 Popis projektu
 
     Implementujte jednoduchý tabulkový kalkulátor. Program bude implementovat funkce vyhledání maxima,
@@ -28,8 +29,8 @@ Implementační detaily
     Sloupce tabulky (resp. buňky na řádku) jsou odděleny jedním a více bílých znaků. Buňka
     může obsahovat číslo nebo text (bez bílých znaků). Maximální délka jednoho řádku je 1024
     znaků.
-    Operace a jejich výstup
 
+    Operace a jejich výstup
     Operace select vypíše seznam hodnot z daného výběru. Každá hodnota bude vypsána na jeden
     řádek. V případě, že hodnota je číslo, bude vypsáno formátem %.10g funkce printf. V
     případě, že výběr zahrnuje více řádků či sloupců, hodnoty tabulky budou zpracovávány po
@@ -37,10 +38,9 @@ Implementační detaily
     následujícího řádku. Operace min, max, sum a avg pracují pouze nad buňkami obsahující
     číselné údaje. Funkce vypíší výsledek jako jedno číslo formátu %.10g na samostatný
     řádek.
-    Neočekávané chování
 
+    Neočekávané chování
     Na chyby za běhu programu reagujte obvyklým způsobem: Na neočekávaná vstupní data,
     argumenty příkazového řádku, formát vstupních dat nebo chyby při volání funkcí reagujte
     přerušením programu se stručným a výstižným chybovým hlášením na příslušný výstup a
     odpovídajícím návratovým kódem.
-

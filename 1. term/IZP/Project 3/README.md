@@ -1,3 +1,4 @@
+# Zadání
 Popis projektu
 
     Vytvořte program, který v daném bludišti a jeho vstupu najde průchod ven. Bludiště je uloženo v
