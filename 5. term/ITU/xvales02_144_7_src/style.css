@@ -1,0 +1,301 @@
+body {
+	margin: 0px;
+	background-color: #FFFFFF;
+	font-family: Arial;			
+}
+
+textarea {
+	resize: none;
+}
+
+span {
+	display: inline-block;
+	text-align: center;
+	margin-left: 15px;
+	width: 50px;
+}
+
+#grayout {
+	opacity: 0.85;
+	background-color: #999999;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 120;
+}
+
+.top {
+	background-color: #2F2F2F;
+	border: 10px solid #404040;
+	position: fixed;
+	width: 800px;
+	height: 600px;
+	top: 100px;
+	left: 400px;
+	z-index: 140;
+}
+
+.browse {
+	font-weight: bold;
+	font-size: 34px;
+	line-height: 0px;
+	text-align:center;
+	margin-bottom: 5px;
+	margin-left: 9px;
+	margin-top: 5px;
+	width: 235px;
+	height: 25px;
+	background-color: #eeeeee;
+	font-family: Arial;	
+}
+
+.large_button {
+	font-weight: bold;
+	font-size: 16.5px;
+	text-align:center;
+	width: 377px;
+	padding: 0px;
+	margin: 0px;
+	margin-left: 3px;
+	margin-top: 2px;
+	background-color: #eeeeee;
+	font-family: Arial;	
+}
+
+.large_button_add {
+	font-weight: bold;
+	font-size: 16.5px;
+	text-align:center;
+	width: 350px;
+	padding: 0px;
+	margin-top: 4px;
+	margin-left: 342px;
+	background-color: #eeeeee;
+	font-family: Arial;	
+}
+
+.large_rewiew {
+	display:inline-block;
+	overflow: hidden;
+	padding: 0px;
+	font-size: 22px;
+	margin: 5px;
+	margin-left: 48px;
+	height: 350px;
+	width: 506px;
+	background-color: #f2f2f2;
+	border: 2px solid #2F2F2F;
+	color: #2F2F2F;
+}
+
+.large_rewiew_wr {
+	margin-left: 262px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	font-size: 22px;
+	width: 504px;
+	height: 350px;
+	font-family: Arial;	
+	background-color: #f2f2f2;
+	border: 2px solid #2F2F2F;
+	color: #2F2F2F;
+}
+
+.back {
+	position: relative;
+	float: right;
+	height: 30px;
+	width: 30px;
+}
+
+/* Style definition of right side menu */
+.list_wiev {
+	list-style-type: none;
+	width: 220px;
+	margin-bottom: 2px;
+	margin-top: 2px;
+	padding: 0px;
+	background-color: #f4f4f4;
+	height: 98.9%;
+	right: 10px;
+	z-index: 200;
+	font-size: 16.5px;
+	position: fixed;
+	overflow: auto;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #2F2F2F;
+}
+#to_read{
+	margin-right: 230px;
+}
+#read{
+	margin-right: 0px;
+}
+.item {
+	background-color: #f4f4f4;
+	padding: 5px;
+	margin: 5px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #f4f4f4;
+}
+.remove {
+	position: relative;
+	float: right;
+	height: 20px;
+	width: 20px;
+}
+.field_name {
+	background-color: #2F2F2F;
+	font-weight: bold;
+	font-size: 20px;
+	color: #ffffff;
+	text-align:center;
+	padding: 5px;
+	margin: 0px;
+	border-bottom: 2px solid #2F2F2F;
+}
+
+/* Style definition of search bar */
+.search_bar {
+	width: 75%;
+	height: 80px;
+	margin: 0;
+	margin-left: 0px;
+	padding: 0;
+	position: fixed;
+	overflow: auto;
+	z-index: 100;
+	background-color: #FFFFFF;
+}
+.search_bar_pos {
+	height: 40px;
+	width: 420px;
+	margin: auto;
+	margin-top: 20px;
+	padding: 0;
+}
+
+/* Style definition of book boxes */
+.content {
+	margin-right: 490px;
+	padding-top: 120px;
+	margin-left: 30px;
+}
+.list_book {
+	background-color: #2F2F2F;
+	width: 235px;
+	height: 330px;
+	border: 10px solid #2F2F2F;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	position: relative;
+	float: left;
+}
+.name {
+	font-size: 21px;
+	text-align: center;
+	padding-top: 4px;
+	margin: 4px;
+	color: #ffffff;
+}
+.author {
+	font-size: 20px;
+	text-align: center;
+	padding-top: 2px;
+	margin: 2px;
+	color: #ffffff;
+}
+.large_name {
+	font-size: 36px;
+	text-align: center;
+	padding-top: 15px;
+	margin: 4px;
+	color: #ffffff;
+}
+.large_author {
+	font-size: 28px;
+	text-align: center;
+	padding-top: 2px;
+	padding-bottom: 20px;
+	margin: 4px;
+	color: #ffffff;
+}
+.review_content {
+	font-size: 25px;
+	text-align: center;
+	margin-top: -5px;
+	color: #2F2F2F;
+}
+.add_to_list {
+	font-size: 25px;
+	text-align: left;
+	padding: 0px;
+	margin: 4px;
+	color: #f4f4f4;
+}
+.rewiew {
+	overflow: hidden;
+	display:inline-block;
+	padding: 5px;
+	font-size: 17px;
+	margin: 2px;
+	margin-bottom: 3px;
+	margin-left: 20px;
+	height: 250px;
+	width: 170px;
+	background-color: #2F2F2F;
+	border: 2px solid #2F2F2F;
+	color: #2F2F2F;
+}
+.rewiew_wr {
+	padding: 0px;
+	margin-left: 8px;
+	font-size: 17px;
+	width: 215px;
+	height: 187px;
+}
+.list_buttons {
+	padding-left: 18px;
+	margin: 0px;
+	background-color: #2F2F2F;
+}
+.button {
+	font-weight: bold;
+	font-size: 16.5px;
+	text-align:center;
+	width: 108px;
+	padding: 0px;
+	margin: 0px;
+	margin-left: 3px;
+	margin-top: 2px;
+	background-color: #eeeeee;
+	font-family: Arial;	
+}
+
+.button_add {
+	font-weight: bold;
+	font-size: 16.5px;
+	text-align:center;
+	width: 190px;
+	padding: 0px;
+	margin-top: 4px;
+	margin-left: 22px;
+	background-color: #eeeeee;
+	font-family: Arial;	
+}
+
+.details{
+	font-weight: bold;
+	font-size: 16.5px;
+	line-height: 0px;
+	text-align: center;
+	margin-bottom: 0px;
+	margin-left: 5px;
+	margin-top: 10px;
+	width: 175px;
+	height: 25px;
+	background-color: #eeeeee;
+	font-family: Arial;	
+}

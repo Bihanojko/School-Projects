@@ -1,0 +1,68 @@
+% Projekt 4
+% Typografie a publikovani
+% Autor: Nikola Valesova
+% Datum: 12. 4.2016
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=2cm,text={17cm, 24cm},top=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{times}
+\usepackage{url}
+\DeclareUrlCommand\url{\def\UrlLeft{<}\def\UrlRight{>} \urlstyle{tt}}
+
+
+\begin{document}
+
+\begin{titlepage}
+	\centering
+	{\textsc{\Huge Vysoké učení technické v~Brně\\ \vspace{2.5mm}
+	\huge Fakulta informačních technologií}}
+
+	\vspace{\stretch{0.382}}
+
+	{\LARGE Typografie a~publikování\,--\,4. projekt\\ \vspace{2mm}
+	\Huge Citace}
+
+	\vspace{\stretch{0.618}}
+
+	{\Large \today \hfill Nikola Valešová }
+\end{titlepage}
+
+
+\section*{Sazba matematických vzorců}
+
+Mezi nejobecnější zásady typograficky správného dokumentu patří například systematičnost a sladění vizuální podoby dokumentu s~jeho obsahem \cite{Sirucek:Pravidla_ceske_digitani_typografie}. Lze mezi ně však zařadit i správné zapsání matematických vzorců a formulí.
+
+\subsection*{Možnosti umístění vzorců}
+
+Matematické formule se mohou vyskytovat v~rámci řádku textu nebo oddělené od hlavního bloku textu \cite{Helmut_Daly:Guide_to_Latex}. V~knize \emph{Latex pro začátečníky} je popsáno několik matematických prostředí, pomocí kterých můžeme rovnice vysázet, například \texttt{math}, \texttt{displaymath}, \texttt{equation} a \texttt{eqnarray} \cite{Rybicka:Latex_pro_zacatecniky}.
+
+\subsection*{Způsoby sazby}
+
+Prvního způsobu vložení rovnice na řádek textu můžeme použít oddělovače: \verb|\( \)|, symbol dolaru nebo příkazy \verb|\begin{math}| a \verb|\end{math}| \cite{Mathematical_expressions}. Pokud chceme vložit matematický vzorec mimo hlavní text, lze použít prostředí \texttt{equation*}, \texttt{displaymath}, nebo zdvojený symbol dolaru, který se však nedoporučuje, jelikož může způsobit problém v~kombinaci s~určitými makry \cite{Wikibooks}. Zároveň toto prostředí automaticky neinkrementuje hodnotu čítače rovnic. Řešení můžeme najít například v~knize \emph{\LaTeX v kostce}. Podle této publikace lze inkrementace vyžádat příkazem \verb|\refstepcounter{equation}| \cite{Sopuch:LaTeX_v_kostce}.
+
+\subsection*{Odlišnosti české sazby}
+
+Při sazbě matematických textů můžeme narazit na rozdíly mezi standardem AMS a sazbou výrazů podle českých pravidel. Týká se to například názvů trigonometrických funkcí, symbolu pro krát nebo operátorů, které jsou dány zkratkou. Možnosti řešení těchto problémů sepsal Karel Horák do svého článku \cite{Horak:Sazba_matematiky}, ve kterém popsal detaily různých přístupů a popsal i spoustu drobných odlišností, které bychom mohli přehlédnout.
+
+\subsection*{Mezery v~matematických výrazech}
+
+Na chybné použití mezer v~matematických výrazech poukazuje Marcela Kubová ve své bakalářské práci, kde zdůrazňuje, že desetinná tečka se píše bez mezer a naopak dvojtečka by měla být z~obou stran oddělena mezerami \cite{Kubova:Kontrola_typografie}. Vhodné matematické prostředí v~\LaTeX u tento problém vyřeší za nás, avšak měli bychom tyto informace vědět.  
+
+\subsection*{Sazba indexu a exponentu}
+
+Konstruktor indexu a exponentu se sází za výraz. Pokud je indexem nebo exponentem pouze jediný znak, lze jej zapsat přímo za daný konstruktor, v~opačném případě je potřeba celý výraz uzařít do složených závorek, například: \verb|\alfa_k|, \verb|b^3|, \verb|\alfa_{n+1}| a \verb|b^{n+3}| \cite{Olsak:Zpravodaj}.
+
+\subsection*{Jak (ne)sázet matematické vzorec}
+
+Příklady, jak by matematické vzorce neměly být vysázeny, můžeme najít napříkad v~článku Zuzany Václavíkové v~periodiku \emph{Zpravodaj Československého sdružení uživatelů \TeX u} \cite{Vaclavikova:Zpravodaj}. Autorka vybrala reálné příklady od učitelů základních a středních škol, na kterých poukazuje na nesrovnalosti a nedokonalosti, na které je potřeba si dát pozor.
+
+\newpage
+
+\renewcommand{\refname}{Použitá literatura}
+\bibliography{citace}
+\bibliographystyle{czechiso}
+
+
+\end{document}

@@ -1,0 +1,88 @@
+.\" Subject: Network Applications and Network Administration
+.\" Project: Monitoring of DHCP Communication
+.\" Author: Nikola Valesova
+.\" Login: xvales02
+.\" Date: 19. 11. 2016
+.\" dhcp-stats.1
+
+.TH DHCP-STATS 1 2017-10-20
+.SH NAME
+dhcp-stats \- vytvoreni statistiky o vytizeni podsite
+.SH SYNOPSIS
+.B dhcp-stats
+\fIip-prefix\fR
+[\fIOPTION\fR]...
+.SH DESCRIPTION
+.B dhcp-stats
+monitoruje DHCP komunikaci a vytvari statistiky vytizeni podsiti. Pocet zarizeni pripojenych v jednotlivych podsitich je vypsan na terminal za pomoci funkci z balicku ncurses, ktery je treba na dane zarizeni nainstalovat. Kazdy vypis sestava ze seznamu IP prefixu zadanych jako argumenty, maximalnim poctu zarizeni, ktera se do teto podsite mohou pripojit, pocet aktualne pripojenych zarizeni a procentualni vytizeni dane podsite.
+.SH IMPLEMENTATION
+.TP
+Program odposlouchava sitovou komunikaci za pomoci rozhrani BSD sockets. Nejprve je vytvoren socket a zacina odposlouchavani packetu. Program zahazuje veskere packety, krome tech, ktere jsou poslany skrze protokol UDP a maji cislo zdrojoveho ci ciloveho portu odpovidajici nektere z DHCP zprav. U techto zprav pote overi, zda se jedna o DHCP ACK, nebo DHCP Release zpravy. Jestlize ne, packet je zahozen, v opacnem pripade je ze zpravy ziskana IP adresa klienta a v pripade ACK i lease time a tento zaznam je promitnut do statistiky. 
+.P
+V pripade DHCP ACK zpravy je vytvoreno nove vlakno, ktere zaznamena sve identifikacni cislo jako spravce dane IP adresy a uspi se na dobu urcenou hodnotou lease time. Po svem probuzeni zkontroluje, zda je dana IP adresa stale vedena v zaznamech, a pokud ano, overi, zda je stale toto vlakno jejim spravcem a nebyl tedy mezitim poslan novy ACK. V kladnem pripade smaze zaznam o IP adrese a dekrementuje pocet zarizeni v sitich, do kterych IP adresa spadala. 
+.P
+U DHCP Release zpravy program pouze zkontroluje, zda se dana IP adresa nachazi v zaznamech. Pokud ano, smaze tento zaznam a dekrementuje pocet zarizeni v sitich, do kterych IP adresa spada.
+.SH OPTIONS
+.TP
+.BR \fIip-prefix\fR
+Seznam siti, u kterych bude sledovano vytizeni. Za IP adresou kazde site musi byt uveden i prefix, tedy pocet bitu masky, ktery musi byt z rozsahu 1-32. V pripade, ze se jedna o IP adresu zarizeni, jsou prebytecne bity vynulovany.
+.TP
+.BR \fB\-c\fR " " \fIint\fR
+Zapis jednotlivych statistik do souboru logfile.csv kazdych \fIint\fR sekund.
+.TP
+.BR \-h ", " \-\-help
+Zobrazi napovedu a ukonci program.
+.SH LOGGING
+.TP
+.BR Prepinac " " \fB\-c\fR " " \fIint\fR
+Vypis statistiky je provaden do souboru logfile.csv, a to kazdych \fIint\fR sekund. Kazdy zaznam zacina casovou znamkou ve formatu YYYY-MM-DD HH:MM:SS a na dalsim radku zacina vypis tabulky vytizeni prefixu vcetne hlavicky. Jednotlive zaznamy jsou od sebe oddeleny prazdnym radkem.
+.SH EXAMPLES
+
+.BR ./dhcp-stats " " 192.168.1.0/24 " " 192.168.0.0/22
+.br                                                                                                                                               
+IP Prefix         Max hosts    Allocated addresses   Utilization                                                                  
+192.168.1.0/24      254	           12                       4,72 %
+.br          
+192.168.0.0/22      1022           56                       5,48 %
+
+
+.BR ./dhcp-stats " " 192.168.1.0/24 " " 192.168.0.0/22 " " 172.16.32.0/24 " " -c " " 2
+.br
+2016-10-11 11:55:12
+.br
+IP Prefix,Max hosts,Allocated addresses,Utilization
+.br
+192.168.1.0/24,254,0,0%
+.br
+192.168.0.0/22,1022,0,0%
+.br
+172.16.32.0/24,254,0,0%
+
+2016-10-11 11:55:14
+.br
+IP Prefix,Max hosts,Allocated addresses,Utilization
+.br
+192.168.1.0/24,254,0,0%
+.br
+192.168.0.0/22,1022,0,0%
+.br 
+172.16.32.0/24,254,0,0%
+.SH EXIT STATUS
+.TP
+0
+OK
+.TP
+1
+spatny format ci pocet argumentu
+.TP
+2
+chyba pri vytvareni socketu
+.TP
+3
+chyba ve funkci recvfrom()
+.TP
+4
+chyba pri otevirani souboru logfile.csv
+.SH AUTHOR
+.TP
+Program vytvorila Nikola Valesova (xvales02@fit.stud.vutbr.cz).

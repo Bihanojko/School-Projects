@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf8"/>
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<h1>21. Knihovna</h1>
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>Nikola Valešová
+	    <a href="mailto:xvales02@stud.fit.vutbr.cz">xvales02@stud.fit.vutbr.cz</a> -
+		Implementace informačního systému, propojení s databází, návrh uživatelského rozhraní,
+	</dd>
+	<dd>Ondřej Valeš
+	    <a href="mailto:xvales03@stud.fit.vutbr.cz">xvales03@stud.fit.vutbr.cz</a> - 
+		Implementace databázového systému, ošetřování platnosti vstupů, testování
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://www.stud.fit.vutbr.cz/~xvales03/IIS">http://www.stud.fit.vutbr.cz/~xvales03/IIS</a></dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<table>
+<tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>honzaz</td><td>passwd1</td><td>Vedoucí</td></tr>
+<tr><td>amusil</td><td>passwd2</td><td>Knihovník</td></tr>
+<tr><td>monule</td><td>passwd5</td><td>Čtenář</td></tr>
+</table>
+
+<h2>Implementace</h2>
+<p>Možnost vyhledat titul je implementována v souborech</p>
+<ul>
+    <li>intraportal.php</li>
+    <li>search_db.php</li>
+</ul>
+
+<p>Možnost rezervovat titul je implementována v souborech</p>
+<ul>
+    <li>intraportal.php</li>
+    <li>add_reservation.php</li>
+</ul>
+
+<p>Možnost zrušit rezervaci je implementována v souborech</p>
+<ul>
+    <li>intraportal.php</li>
+    <li>user_info.php</li>
+    <li>remove_reservation.php</li>
+</ul>
+
+<p>Možnost vypůjčit výtisk je implementována v souborech</p>
+<ul>
+    <li>user_data.php</li>
+    <li>add_borrowing.php</li>
+	<li>add_borr_op.php</li>
+</ul>
+
+<p>Možnost uzavřít výpůjčku je implementována v souborech</p>
+<ul>
+    <li>user_data.php</li>
+    <li>remove_borrowing.php</li>
+</ul>
+
+<p>Možnost přidat, odebrat a spravovat titul je implementována v souborech</p>
+<ul>
+    <li>get_title_info.php</li>
+    <li>title_info.php</li>
+    <li>title_db_op.php</li>
+    <li>insert_title.php</li>
+    <li>add_title.php</li>
+</ul>
+
+<p>Možnost přidat, odebrat a spravovat uživatele je implementována v souborech</p>
+<ul>
+    <li>user_info.php</li>
+    <li>registration.php</li>
+    <li>user_db_op.php</li>
+    <li>add_user_form.php</li>
+    <li>add_user.php</li>
+</ul>
+
+<h2>Instalace</h2>
+<p>Postup instalace projektu na server:</p>
+<ol>
+<li>Rozbalit zip archiv</li>
+<li>Nahrát zdrojové soubory do příslušného adresáře na serveru</li>
+<li>Inicializovat databázi pomocí skriptu db_create.sql</li>
+</ol>
+
+<h3>Požadavky</h3>
+<ul>
+<li>PHP verze 5.5</li>
+<li>MySQL databáze</li>
+</ul>
+
+<h2>Známé problémy</h2> 
+<p>Úprava autora řešena v rámci úpravy titulu (autor je přidán spoulu s titulem, nelze přidat autora, který nemá v databázi titul).</p>
+
+</body>
+</html>

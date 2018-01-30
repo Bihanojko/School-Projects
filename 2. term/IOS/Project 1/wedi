@@ -1,0 +1,251 @@
+#!/bin/bash
+
+#Nikola Valesova
+#xvales02
+#FIT VUT
+#29. 3. 2015
+
+
+
+	#funkce pro vypis chyboveho hlaseni
+
+function error {
+   >&2 echo "$1"
+   exit 1
+}
+
+	#funkce na zmenu adresare
+
+function chd {
+   cd "$1"
+}
+
+
+	#funkce na otevreni souboru
+
+function open {
+   echo -n $(date +"%Y%m%d") >> "$WEDI_RC"	#zapis datum
+   echo $(realpath "$1") >> "$WEDI_RC"	  	#zapis cestu k souboru
+   exec "$EDITOR" "$1"			  	#otevri soubor pro editaci
+   if [ "$?" -ne 0 ]; then			#zkontroluj navratovou hodnotu
+      exit "$?"
+   fi
+}
+
+
+	#funkce pro parametr [ADRESAR]
+
+function pard {
+adresar=$(pwd)
+chd "$1"
+tmp=$(egrep "$1" "$WEDI_RC" | rev | cut -f1 -d/ | rev | awk '
+
+#overeni, zda soubor stale existuje
+BEGIN {
+}
+
+{
+	if ( system( "[ ! -f \""$0"\" ] " ) )
+	{
+	     print $0
+	}
+}
+
+END {
+} ' )
+
+if [ -z "$tmp" ]; then
+	error "CHYBA: V danem adresari nebyl editovan zadny soubor!"
+fi
+
+file=$(echo "$tmp" | tail -n 1)
+open "$file"
+chd "$adresar"
+}
+
+
+	#funkce pro parametr -l
+
+function parl {
+adresar=$(pwd)
+chd "$1"
+tmp=$(egrep "$1" "$WEDI_RC" | rev | cut -f1 -d/ | rev | sort -u | awk '
+
+#overeni, zda soubor stale existuje
+BEGIN {
+}
+
+{
+	if ( system( "[ ! -f \"" $0 "\" ] " ) )
+	{
+	     print $0
+	}
+}
+
+END {
+} ' )
+
+echo "$tmp"
+chd "$adresar"
+}
+
+
+	#funkce pro parametr -m
+
+function parm {
+adresar=$(pwd)
+chd "$1"
+tmp=$(egrep "$1" "$WEDI_RC" | rev | cut -f1 -d/ | rev | sort | uniq -c | sort -rn | awk '{print $2}' | awk '
+
+#overeni, zda soubor stale existuje
+BEGIN {
+}
+
+{
+	if ( system( "[ ! -f \""$0"\" ] " ) )
+	{
+	     print $0
+	}
+}
+
+END {
+} ' )
+
+if [ -z "$tmp" ]; then
+	error "CHYBA: V danem adresari nebyl editovan zadny soubor!"
+fi
+
+file=$(echo "$tmp" | head -n 1)
+open "$file"
+chd "$adresar"
+}
+
+
+	#funkce pro parametr -a
+
+function para {
+adresar=$(pwd)
+chd "$1"
+vtmp=$(egrep "$1" "$WEDI_RC" | tr " " ":")
+
+for i in $vtmp
+do
+     dtmp=$(echo "$i" | cut -f1 -d/)
+     if [ "$dtmp" -ge "$2" ]; then
+     	ftmp=$(echo "$i" | rev | cut -f1 -d/ | rev)
+	if [ -f "$ftmp" ]; then
+	     ttmp=$(echo -e "$ttmp\n$ftmp")
+	fi
+     fi
+done
+
+echo "$ttmp" | tail -n +2 | sort | uniq | tr ":" " "
+chd "$adresar"
+}
+
+
+	#funkce pro parametr -b
+
+function parb {
+adresar=$(pwd)
+chd "$1"
+vtmp=$(egrep "$1" "$WEDI_RC" | tr " " ":")
+
+for i in $vtmp
+do
+     dtmp=$(echo "$i" | cut -f1 -d/)
+     if [ "$dtmp" -le "$2" ]; then
+     	ftmp=$(echo "$i" | rev | cut -f1 -d/ | rev)
+	if [ -f "$ftmp" ]; then
+	     ttmp=$(echo -e "$ttmp\n$ftmp")
+	fi
+     fi
+done
+
+echo "$ttmp" | tail -n +2 | sort | uniq | tr ":" " "
+chd "$adresar"
+}
+
+
+	#kontrola, zda je dostupna utilita realpath
+
+command -v realpath >/dev/null 2>&1 || { >&2 echo "CHYBA: Utilita realpath neni definovana!"; exit 1; }
+
+
+	#kontrola, zda je EDITOR definovany
+
+if [ -z "$EDITOR" ]; then
+     #zkontroluj, zda je definovany VISUAL
+     if [ -z "$VISUAL" ]; then
+     	error "CHYBA: Promenne EDITOR a  VISUAL nejsou definovane!"
+     fi
+     EDITOR="$VISUAL"
+fi
+
+
+	#kontrola, zda je WEDI_RC definovana
+
+if [ -z "$WEDI_RC" ]; then
+     error "CHYBA: Promenna WEDI_RC neni definovana!"
+fi
+
+
+	#rozdeleni podle zadanych argumentu
+
+if [ -d "$1" ]; then		#spusteni: wedi ADRESAR
+     pard "$1"
+
+elif [ "$#" -eq 0 ]; then	#spusteni bez argumentu
+     pard `pwd`
+
+elif [ "$1" = "-m" ]; then	#spusteni: wedi -m [ADRESAR]
+     if [ "$#" -eq 1 ]; then
+	parm `pwd`
+     elif [ -d "$2" ]; then
+	parm "$2"
+     else
+	error "CHYBA: Spatne zadane argumenty!"
+     fi
+
+elif [ "$1" = "-l" ]; then	#spusteni: wedi -l [ADRESAR]
+     if [ "$#" -eq 1 ]; then
+	parl `pwd`
+     elif [ -d "$2" ]; then
+	parl "$2"
+     else
+	error "CHYBA: Spatne zadane argumenty!"
+     fi
+
+elif [ 1 -eq "$#" ]; then		#spusteni: wedi SOUBOR
+     open "$1"
+
+elif [ "$(date -d "$2")" ]; then	#spusteni: -b/-a DATUM [ADRESAR]
+     datum=`echo "$2" | tr -d "-"`
+
+     if [ "$1" = "-b" ]; then
+	if [ "$#" -eq 2 ]; then
+	     parb `pwd` "$datum"
+	elif [ -d "$3" ]; then
+	     parb "$3" "$datum"
+	else
+	     error "CHYBA: Spatne zadane argumenty!"
+	fi
+
+     elif [ "$1" = "-a" ]; then
+	if [ "$#" -eq 2 ]; then
+	     para `pwd` "$datum"
+	elif [ -d "$3" ]; then
+	     para "$3" "$datum"
+	else
+	     error "CHYBA: Spatne zadane argumenty!"
+	fi
+     else
+	error "CHYBA: Spatne zadane argumenty!"
+     fi
+
+else
+     error "CHYBA: Spatne zadane argumenty!"
+
+fi
+
+exit 0

@@ -1,0 +1,29 @@
+Předmět: Počítačové komunikace a sítě
+Projekt: Přenos souborů
+Autor: Nikola Valešová, xvales02
+Datum: 23. 4. 2016
+
+Projekt sestává ze dvou programů - klient a server a slouží k přenosu souborů mezi nimi.
+Oba programy využívají pro komunikaci protokol TCP, použitý aplikační protokol je popsán
+v souboru dokumentace.pdf. Nahrávání souboru je u serveru možné pouze z aktuálního adresáře,
+klient může odeslat i soubor z jiného adresáře. Uložení souborů pak vždy probíhá do stejného 
+adresáře, ve kterém se nachází klient/server.
+
+Návod na použití:
+	- make (pomocí přiloženého Makefile souboru vytvoří spustitelné soubory server a client)
+	- přesuňte spustitelné soubory do požadovaných adresářů (volitelné) 
+	- ./server -p <ČÍSLO_PORTU> (spustí server, ČÍSLO_PORTU nahraďte zvoleným portem)
+	- ./client -h <HOSTNAME> -p <ČÍSLO_PORTU> [-d|-u] <JMÉNO_SOUBORU>
+	(spustí klienta, HOSTNAME nahraďte jménem či adresou serveru, na kterém běží program server,
+	ČÍSLO_PORTU nahraďte zvoleným portem, pro správnou funkčnost je nezbytné, aby bylo stejné jako
+	v předchozím bodě, přepínač -d, respektive -u udává požadovanou operaci - stažení/nahrání souboru
+	a JMÉNO_SOUBORU nahraďte názvem souboru)
+	- po dokončení operace se client sám ukončí, server běží stále a je možno na něj posílat
+	další požadavky, ukončit jej lze pomocí příkazu kill -9 PID
+
+Detailnější popis
+Při volbě čísla portu je třeba zadat validní číslo, které nepřeteče maximální možnou hodnotu integeru. 
+Server jinak nemá žádná omezení. V případě klienta není třeba dodržet pořadí přepínačů, je však kontrolován 
+jejich počet a unikátnost každého z nich. Pro volbu čísla portu platí stejné podmínky jako pro server.
+Pro zadaný soubor je ošetřeno, zda existuje a je čitelný (pro nahrávání), nebo zda lze vytvořit
+(pro stahování). Server je implementován jako konkurentní s využitím vláken.
