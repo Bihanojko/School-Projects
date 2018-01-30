@@ -1,4 +1,9 @@
-Vytvoře program pro detekci spamu v emilové komunikaci. Možno použít jazyky C,C++, Python. 
+#Antispam
+
+E-mail classifier, classifies input e-mails as spam or ham.
+
+#Zadání
+Vytvořte program pro detekci spamu v emilové komunikaci. Možno použít jazyky C, C++, Python. 
 
 Po provedení příkazu "make" bude k dispozici spustitelný soubor "antispam". Program bude přijímat volitelné množství parametrů, kde každý parametr obsahuje cestu k souboru s emailem. Emailový soubor bude ve formátu .eml. Pro každý vstup soubor program vytiskne na standardní výstup: 
 <název souboru> - <hodnocení> - důvod hodnocení \n 
